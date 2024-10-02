@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo</title>
+</head>
+<body>
+    
+        <input type="text"  id="todos1"> </input>
+        <button onclick="Addtodo()"> Add Todo</button>
+        <button onclick="deletelastNode()">Delete Last Node</button>
+        <div id="todos"></div>
+
+    
+</body>
+<script> 
+    // This is what we do when we refere to updating stuffs on DOM.
+    // Hence this is call as DOM Manipulation.
+    // function  Addtodo(){
+
+    //     const getinput = document.getElementById("todos").value;
+    //     const newnode = document.createElement("div");
+    //     const newspan= document.createElement("span");
+    //     const newbutton= document.createElement("button");
+    //     newspan.innerHTML=getinput;
+    //     newbutton.innerHTML= "Delete";
+
+    //     newbutton.onclick = function() {
+    //         newnode.remove(); 
+    //     };
+
+
+    //     newnode.appendChild(newspan);
+    //     newnode.appendChild(newbutton);
+
+
+    //     document.querySelector("body").appendChild(newnode);
+    // }
+
+    let todos = [];
+
+    function Addtodo(){
+        todos.push({
+            title:document.getElementById("todos1").value
+        })
+        render();
+
+    }
+
+    function deletelastNode(){
+        todos.splice(todos.length -1, 1) // removes the last element from the array.
+        render();
+    }
+
+    function createtodobutton(todo){
+            const newdiv= document.createElement("div");
+            const h1= document.createElement("h1");
+            const button = document.createElement("button");
+            button.innerHTML="Delete"
+            h1.innerHTML=todo.title;
+            newdiv.appendChild(h1);
+            newdiv.appendChild(button);
+
+            button.onclick = function dele(){
+                document.querySelector("#todos").removeChild(newdiv);   
+            }
+            return newdiv;
+
+            
+
+       
+
+        //render();
+    }
+    // create a render function which will take state and update the dom
+    function render(){
+
+        document.querySelector("#todos").innerHTML=" ";
+        for(let i=0;i<todos.length;i++){
+
+            const element= createtodobutton(todos[i]) ;
+            document.querySelector("#todos").appendChild(element);
+
+        }
+        
+
+    }
+</script>
+</html>
